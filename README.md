@@ -4,6 +4,7 @@
 
 - `colab/image_to_3d_colab.ipynb`: notebook chạy thử trên Google Colab GPU miễn phí.
 - `colab/triposr_360_colab.ipynb`: notebook tạo object 360 đẹp hơn bằng TripoSR.
+- `colab/all_in_one_2d_to_3d_colab.ipynb`: notebook gộp cả TripoSR 360 và Depth Anything trong một file.
 - `webapp/`: FastAPI backend + HTML/JS frontend dùng `model-viewer` để upload, preview và tải file 3D.
 
 Hướng dẫn cấu hình Colab theo từng cell từ A-Z nằm ở: `COLAB_A_Z.md`.
@@ -31,7 +32,25 @@ Pipeline 360 đẹp:
 
 ## Chạy trên Google Colab
 
-Nếu mục tiêu là 360 đẹp, mở:
+Nếu muốn dùng một notebook duy nhất, mở:
+
+```text
+colab/all_in_one_2d_to_3d_colab.ipynb
+```
+
+Trong cell cấu hình, chọn:
+
+```python
+PIPELINE = 'triposr_360'
+```
+
+hoặc:
+
+```python
+PIPELINE = 'depth_relief'
+```
+
+Nếu mục tiêu là 360 đẹp và muốn notebook tách riêng, mở:
 
 ```text
 colab/triposr_360_colab.ipynb

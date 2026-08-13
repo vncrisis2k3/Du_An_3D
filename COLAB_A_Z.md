@@ -4,8 +4,31 @@ Tài liệu này hướng dẫn chạy toàn bộ các cell trên Google Colab c
 
 - **360 độ đẹp cho vật thể đơn**: dùng `colab/triposr_360_colab.ipynb`.
 - **Depth/point cloud/relief nhanh**: dùng `colab/image_to_3d_colab.ipynb`.
+- **Một file gộp cả hai chế độ**: dùng `colab/all_in_one_2d_to_3d_colab.ipynb`.
 
 Nếu mục tiêu chính của bạn là mô hình xoay 360 đẹp, hãy bắt đầu với notebook TripoSR.
+
+## Notebook Gộp Một File
+
+File nên dùng nếu bạn muốn đơn giản hóa:
+
+```text
+colab/all_in_one_2d_to_3d_colab.ipynb
+```
+
+Trong `Cell 2`, chọn pipeline:
+
+```python
+PIPELINE = 'triposr_360'
+```
+
+hoặc:
+
+```python
+PIPELINE = 'depth_relief'
+```
+
+Các cell còn lại sẽ tự chạy đúng nhánh. Cell TripoSR sẽ tự bỏ qua nếu bạn chọn depth, và cell depth sẽ tự bỏ qua nếu bạn chọn TripoSR.
 
 ## A. Chuẩn Bị Trên Google Colab
 

@@ -75,7 +75,8 @@ Kết quả mong muốn:
 Cell này cài PyTorch, clone repo TripoSR và cài requirements:
 
 ```python
-!pip -q install --upgrade pip setuptools wheel
+!pip -q install --upgrade pip
+!pip -q install "setuptools<82" wheel "jedi>=0.16"
 !pip -q install torch torchvision --index-url https://download.pytorch.org/whl/cu124
 !git clone https://github.com/VAST-AI-Research/TripoSR.git /content/TripoSR
 %cd /content/TripoSR
@@ -97,6 +98,22 @@ Nếu lỗi `torchmcubes`, chạy:
 !pip uninstall -y torchmcubes
 !pip install git+https://github.com/tatsy/torchmcubes.git
 ```
+
+Nếu thấy log kiểu `pip's dependency resolver does not currently take into account...`, thường đó là cảnh báo do Colab đã cài sẵn nhiều package khác phiên bản. Với TripoSR, các cảnh báo về `huggingface-hub`, `transformers`, `websockets`, `numpy`, `diffusers`, `jax`, `sentence-transformers` thường có thể bỏ qua nếu cell vẫn chạy tiếp và không có traceback ở cuối.
+
+Nếu thấy cảnh báo:
+
+```text
+torch ... requires setuptools<82, but you have setuptools 84.0.0
+```
+
+Chạy cell sửa nhanh này rồi chạy lại cell cài đặt:
+
+```python
+!pip -q install "setuptools<82" "jedi>=0.16"
+```
+
+Nếu cell cài đặt đã chạy xong và cell inference vẫn chạy được, bạn không cần xử lý thêm.
 
 ### Cell 4 - Upload Ảnh
 
@@ -219,6 +236,7 @@ Cell cài PyTorch, Transformers, Open3D, Trimesh, FastAPI:
 
 ```python
 !pip -q install --upgrade pip
+!pip -q install "setuptools<82" wheel "jedi>=0.16"
 !pip -q install torch torchvision --index-url https://download.pytorch.org/whl/cu124
 !pip -q install transformers accelerate timm opencv-python pillow matplotlib numpy open3d trimesh fastapi uvicorn pyngrok python-multipart nest_asyncio
 ```
@@ -466,6 +484,24 @@ os.environ['NGROK_AUTHTOKEN'] = 'PASTE_TOKEN_CUA_BAN'
 1. Kiểm tra file `mesh.glb` có tồn tại.
 2. Chạy lại cell preview.
 3. Giảm độ phân giải mesh nếu file quá nặng.
+
+### Pip Báo Dependency Conflict
+
+Ví dụ:
+
+```text
+diffusers requires huggingface-hub...
+sentence-transformers requires transformers...
+jax requires numpy...
+```
+
+Đây thường là cảnh báo của môi trường Colab có nhiều thư viện cài sẵn. Nếu dòng cuối không phải `ERROR` kèm traceback Python và cell vẫn hoàn tất, cứ chạy cell tiếp theo.
+
+Cell sửa nhanh nên chạy khi gặp cảnh báo `setuptools`:
+
+```python
+!pip -q install "setuptools<82" "jedi>=0.16"
+```
 
 ## G. Kết Luận Nên Dùng Gì
 

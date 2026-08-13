@@ -81,6 +81,7 @@ Cell này cài PyTorch, clone repo TripoSR và cài requirements:
 !git clone https://github.com/VAST-AI-Research/TripoSR.git /content/TripoSR
 %cd /content/TripoSR
 !pip -q install -r requirements.txt
+!pip -q install onnxruntime trimesh
 ```
 
 Nếu chạy lại notebook lần hai và `git clone` báo thư mục đã tồn tại, dùng cell thay thế:
@@ -97,6 +98,24 @@ Nếu lỗi `torchmcubes`, chạy:
 ```python
 !pip uninstall -y torchmcubes
 !pip install git+https://github.com/tatsy/torchmcubes.git
+```
+
+Nếu lỗi:
+
+```text
+ModuleNotFoundError: No module named 'onnxruntime'
+```
+
+Chạy cell sửa nhanh này:
+
+```python
+!pip -q install onnxruntime
+```
+
+Sau đó chạy lại cell TripoSR inference, tức cell có lệnh:
+
+```python
+!python run.py "$input_path" ...
 ```
 
 Nếu thấy log kiểu `pip's dependency resolver does not currently take into account...`, thường đó là cảnh báo do Colab đã cài sẵn nhiều package khác phiên bản. Với TripoSR, các cảnh báo về `huggingface-hub`, `transformers`, `websockets`, `numpy`, `diffusers`, `jax`, `sentence-transformers` thường có thể bỏ qua nếu cell vẫn chạy tiếp và không có traceback ở cuối.

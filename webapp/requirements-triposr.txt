@@ -1,0 +1,10 @@
+# Cài sau khi đã cài requirements.txt nếu muốn chế độ 360 object đẹp.
+# TripoSR repo cũng có requirements riêng; file này gom các gói chính để chạy wrapper web.
+omegaconf==2.3.0
+einops==0.7.0
+git+https://github.com/tatsy/torchmcubes.git
+rembg
+huggingface-hub
+imageio[ffmpeg]
+xatlas==0.0.9
+moderngl==5.10.0

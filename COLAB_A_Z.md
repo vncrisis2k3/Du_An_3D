@@ -219,6 +219,23 @@ Nếu object quá nhỏ trong preview, tăng:
 --foreground-ratio 0.9
 ```
 
+Nếu lỗi:
+
+```text
+No such file or directory: '/content/TripoSR'
+python3: can't open file '/content/all_in_one_2d_to_3d/inputs/run.py'
+```
+
+Nguyên nhân là runtime không còn thư mục TripoSR, hoặc Colab đang đứng ở thư mục input nên lệnh `python run.py` bị chạy sai chỗ. Với notebook All-in-One bản mới, Cell 6A đã dùng đường dẫn tuyệt đối `/content/TripoSR/run.py` để tránh lỗi này.
+
+Cách sửa nhanh:
+
+1. Chạy lại Cell 3 để clone/cài TripoSR.
+2. Chạy lại Cell 5 nếu muốn upload ảnh mới.
+3. Chạy Cell 6A.
+
+Không tin output cũ nếu cell có lỗi `run.py`; hãy chạy lại Cell 6A sau khi Cell 3 thành công.
+
 ### Cell 6 - Preview GLB
 
 Cell này nhúng file `mesh.glb` vào `model-viewer`.

@@ -6,6 +6,8 @@
 - `colab/triposr_360_colab.ipynb`: notebook tạo object 360 đẹp hơn bằng TripoSR.
 - `webapp/`: FastAPI backend + HTML/JS frontend dùng `model-viewer` để upload, preview và tải file 3D.
 
+Hướng dẫn cấu hình Colab theo từng cell từ A-Z nằm ở: `COLAB_A_Z.md`.
+
 ## Chọn pipeline
 
 - Muốn **360 độ đẹp cho vật thể đơn**: dùng `TripoSR`. Đây là chế độ mặc định trên web.

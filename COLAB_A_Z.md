@@ -372,6 +372,26 @@ MAX_IMAGE_SIDE = 768
 
 Rồi chạy lại từ cell định nghĩa hàm trở xuống.
 
+Nếu lỗi khi upload:
+
+```text
+FileNotFoundError: [Errno 2] No such file or directory: 'ten_anh.png'
+```
+
+Nguyên nhân thường là Colab đang đứng trong thư mục làm việc đã bị xóa, hay gặp sau khi chạy lại cell cài TripoSR có lệnh `rm -rf /content/TripoSR`. Cách sửa nhanh cho All-in-One là chạy cell này trước Cell 5:
+
+```python
+import os
+from pathlib import Path
+
+INPUT_DIR = Path('/content/all_in_one_2d_to_3d/inputs')
+INPUT_DIR.mkdir(parents=True, exist_ok=True)
+os.chdir(str(INPUT_DIR))
+print('Upload dir:', INPUT_DIR)
+```
+
+Sau đó chạy lại Cell 5.
+
 ### Cell 7 - Hiển Thị Ảnh Gốc Và Depth Map
 
 Cell này giúp kiểm tra depth có hợp lý không.

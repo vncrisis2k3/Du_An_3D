@@ -30,6 +30,18 @@ PIPELINE = 'depth_relief'
 
 Các cell còn lại sẽ tự chạy đúng nhánh. Cell TripoSR sẽ tự bỏ qua nếu bạn chọn depth, và cell depth sẽ tự bỏ qua nếu bạn chọn TripoSR.
 
+Preset TripoSR đẹp hơn trong notebook All-in-One:
+
+```python
+TRIPOSR_MC_RESOLUTION = 320
+TRIPOSR_CHUNK_SIZE = 4096
+TRIPOSR_FOREGROUND_RATIO = 0.8
+TRIPOSR_BAKE_TEXTURE = True
+TRIPOSR_TEXTURE_RESOLUTION = 2048
+```
+
+`TRIPOSR_BAKE_TEXTURE = True` giúp kết quả bớt giống tượng gỗ/nhựa vì TripoSR sẽ bake texture atlas thay vì chỉ dùng vertex color.
+
 ## A. Chuẩn Bị Trên Google Colab
 
 1. Mở Google Colab: `https://colab.research.google.com`.
@@ -194,6 +206,16 @@ Cell mặc định:
 - `--mc-resolution 256`: chất lượng mesh tốt, hợp với T4 nếu đủ VRAM.
 - `--chunk-size 4096`: giảm VRAM khi extract/render.
 - `--foreground-ratio 0.85`: object chiếm 85% khung sau khi tách nền.
+- `--bake-texture`: tạo texture atlas, nhìn giống vật liệu ảnh gốc hơn so với vertex color.
+- `--texture-resolution 2048`: độ phân giải texture.
+
+Trong All-in-One, nếu bật:
+
+```python
+TRIPOSR_BAKE_TEXTURE = True
+```
+
+Cell 6A sẽ export OBJ/textured trước, sau đó convert thêm sang GLB để preview.
 
 Nếu bị thiếu VRAM, đổi thành:
 
@@ -217,6 +239,31 @@ Nếu object quá nhỏ trong preview, tăng:
 
 ```text
 --foreground-ratio 0.9
+```
+
+Nếu kết quả giống tượng gỗ, ít chi tiết:
+
+```python
+TRIPOSR_MC_RESOLUTION = 320
+TRIPOSR_BAKE_TEXTURE = True
+TRIPOSR_TEXTURE_RESOLUTION = 2048
+TRIPOSR_FOREGROUND_RATIO = 0.8
+```
+
+Nếu T4 hết VRAM với cấu hình trên:
+
+```python
+TRIPOSR_MC_RESOLUTION = 256
+TRIPOSR_TEXTURE_RESOLUTION = 1024
+TRIPOSR_CHUNK_SIZE = 2048
+```
+
+Nếu vẫn hết VRAM:
+
+```python
+TRIPOSR_MC_RESOLUTION = 192
+TRIPOSR_BAKE_TEXTURE = False
+TRIPOSR_CHUNK_SIZE = 2048
 ```
 
 Nếu lỗi:

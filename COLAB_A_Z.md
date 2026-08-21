@@ -93,7 +93,8 @@ Cell này cài PyTorch, clone repo TripoSR và cài requirements:
 !git clone https://github.com/VAST-AI-Research/TripoSR.git /content/TripoSR
 %cd /content/TripoSR
 !pip -q install -r requirements.txt
-!pip -q install "numpy==1.26.4" "cupy-cuda12x==13.6.0" onnxruntime trimesh
+!pip -q uninstall -y cupy-cuda12x cupy
+!pip -q install --force-reinstall --no-cache-dir "numpy==1.26.4" "cupy-cuda12x==13.6.0" onnxruntime trimesh
 ```
 
 Nếu chạy lại notebook lần hai và `git clone` báo thư mục đã tồn tại, dùng cell thay thế:
@@ -141,8 +142,8 @@ ImportError: numpy.core.multiarray failed to import
 Nguyên nhân thường là Colab có sẵn `cupy-cuda12x` mới, nhưng TripoSR/rembg kéo `numpy==1.26.4`. Cài lại cặp tương thích:
 
 ```python
-!pip -q install --force-reinstall "numpy==1.26.4" "cupy-cuda12x==13.6.0"
-!pip -q install onnxruntime trimesh
+!pip -q uninstall -y cupy-cuda12x cupy
+!pip -q install --force-reinstall --no-cache-dir "numpy==1.26.4" "cupy-cuda12x==13.6.0" onnxruntime trimesh
 ```
 
 Sau đó nên chọn:
@@ -153,7 +154,21 @@ Runtime > Restart runtime
 
 Rồi chạy lại từ Cell 1 đến Cell 6A. CuPy `13.6.0` có wheel cho Python 3.12 và CUDA 12.x, hợp với môi trường Colab mới hơn.
 
-Nếu thấy log kiểu `pip's dependency resolver does not currently take into account...`, thường đó là cảnh báo do Colab đã cài sẵn nhiều package khác phiên bản. Với TripoSR, các cảnh báo về `huggingface-hub`, `transformers`, `websockets`, `numpy`, `diffusers`, `jax`, `sentence-transformers` thường có thể bỏ qua nếu cell vẫn chạy tiếp và không có traceback ở cuối.
+Sau Cell 3, có thể kiểm tra nhanh:
+
+```python
+import numpy
+import cupy
+import onnxruntime
+
+print('numpy:', numpy.__version__)
+print('cupy:', cupy.__version__)
+print('onnxruntime:', onnxruntime.__version__)
+```
+
+Nếu import được cả 3 thư viện, các cảnh báo dependency conflict trước đó có thể bỏ qua.
+
+Nếu thấy log kiểu `pip's dependency resolver does not currently take into account...`, thường đó là cảnh báo do Colab đã cài sẵn nhiều package khác phiên bản. Với TripoSR, các cảnh báo về `huggingface-hub`, `transformers`, `websockets`, `numpy`, `diffusers`, `jax`, `opencv`, `datasets`, `sentence-transformers`, hoặc `typer does not provide the extra 'all'` thường có thể bỏ qua nếu cell vẫn chạy tiếp và không có traceback ở cuối.
 
 Nếu thấy cảnh báo:
 
